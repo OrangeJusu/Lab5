@@ -1,5 +1,6 @@
 #include "BLT.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -19,17 +20,17 @@ void BLT::Remove(string website) {
 
 // Prints nodes in alphabetical order
 void BLT::Print() {
-
+	PrintRecursive(root);
 }
 
 // Prints nodes in tree format
 void BLT::TPrint() {
-
+	TPrintRecursive(root, 0);
 }
 
 // Prints nodes in reverse alphabetical order
 void BLT::RPrint() {
-
+	RPrintRecursive(root);
 }
 
 // Recursivly adds website to tree
@@ -41,7 +42,7 @@ void BLT::AddRecursive(Node*& node, std::string w) {
 		node->left, node->right = nullptr;
 	}
 	// Tells it where to go if less or greater and does a recursive call
-	else if (w < node->data) {
+	else if (w.compare(node->data) < 0) {
 		AddRecursive(node->left, w);
 	}
 	else {
@@ -49,15 +50,17 @@ void BLT::AddRecursive(Node*& node, std::string w) {
 	}
 }
 
+
+
 // Recursivly removes website from tree
 void BLT::RemoveRecursive(Node*& node, std::string w) {
 	if (node == nullptr) {
 		return;
 	}
-	else if (w < node->data) {
+	else if (w.compare(node->data) < 0) {
 		RemoveRecursive(node->left, w);
 	}
-	else if (w > node->data) {
+	else if (w.compare(node->data) > 0) {
 		RemoveRecursive(node->right, w);
 	}
 	else {
@@ -92,15 +95,32 @@ void BLT::RemoveRecursive(Node*& node, std::string w) {
 
 // Recursivly prints nodes in alphabetical order
 void BLT::PrintRecursive(Node* node) {
-
+	if (node == nullptr) {
+		return;
+	}
+	PrintRecursive(node->left);
+	cout << node->data << endl;
+	PrintRecursive(node->right);
 }
 
 // Recursivly prints nodes in a tree format
-void BLT::TPrintRecursive(Node* node, int indent) {
-
+void BLT::TPrintRecursive(Node* node, int depth) {
+	if (node == nullptr) {
+		return;
+	}
+	TPrintRecursive(node->right, depth + 1);
+	for (int i = 0; i < depth; i++) {
+		cout << "   ";
+	}
+	cout << node->data << endl;
+	TPrintRecursive(node->left, depth+1);
 }
 
 // Recursivly prints nodes in reverse alphabetical order
 void BLT::RPrintRecursive(Node* node) {
-
+	if (node != nullptr) {
+		RPrintRecursive(node->right);
+		cout << node->data << endl;
+		RPrintRecursive(node->left);
+	}
 }
