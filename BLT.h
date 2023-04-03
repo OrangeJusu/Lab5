@@ -26,23 +26,23 @@ private:
     // Node structure for tree
     struct Node {
         std::string data;
-        Node* left;
-        Node* right;
+        Node* left = nullptr;
+        Node* right = nullptr;
     };
 
     Node* root;
 
     // Recursivly adds website to tree
-    void AddRecursive(Node*& node, std::string w);
+    void AddRecursive(Node*& node, string w);
 
     // Recursivly removes website from tree
-    void RemoveRecursive(Node*& node, std::string w);
+    void RemoveRecursive(Node*& node, string w);
 
     // Recursivly prints nodes in alphabetical order
     void PrintRecursive(Node* node);
 
     // Recursivly prints nodes in a tree format
-    void TPrintRecursive(Node* node, int indent);
+    void TPrintRecursive(Node* node, int depth);
 
     // Recursivly prints nodes in reverse alphabetical order
     void RPrintRecursive(Node* node);
